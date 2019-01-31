@@ -7,7 +7,7 @@ function Header() {
         return (
 
             <>
-                <nav class="navBar">
+                <nav className="navBar">
 
                     Welcome to BrewTinerary
                     

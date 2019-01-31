@@ -2,9 +2,12 @@ import React from 'react';
 import initialData from "./initial-data"
 import Column from "./components/Column"
 import Header from "./components/Header"
+import Search from "./components/Search"
+
 import { DragDropContext } from "react-beautiful-dnd";
 import "@atlaskit/css-reset";
 import styled from "styled-components";
+import API from "./utils/brewAPI"
 
 
 //don't change droppale/draggable dimensions during a drag
@@ -13,7 +16,12 @@ const Container = styled.div`
     display: flex
 `;
 export default class App extends React.Component {
-    state = initialData;
+
+    state = {
+        initialData,
+        search: "",
+        result: []
+    }
 
     onDragStart = () => {
         document.body.style.color = "orange"
@@ -25,7 +33,7 @@ export default class App extends React.Component {
         const opacity = destination
             ? destination.index / Object.keys(this.state.tasks).length
             : 0;
-        // document.body.style.backgroundColor = `rgba(153, 141, 217, ${opacity})`
+        document.body.style.backgroundColor = `rgba(153, 141, 217, ${opacity})`
 
     }
 
@@ -95,33 +103,65 @@ export default class App extends React.Component {
             },
         };
         this.setState(newState);
-        
+
 
 
 
     }
 
+    searchBreweries = query => {
+        API.search(query)
+          .then(res => this.setState({ result: res.data }))
+          .catch(err => console.log(err));
+      };
+
+    handleInputChange = event => {
+         
+        const { name, value } = event.target
+
+        this.setState({
+            [name]: value
+        })
+
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+        console.log("submitted")
+        console.log(this.state.result)
+        this.searchBreweries(this.state.search);
+
+    }
+
+
 
     render() {
         return (
 
-          <>
-          <Header></Header>
-            <DragDropContext
-                onDragEnd={this.onDragEnd}
-                onDragStart={this.onDragStart}
-                onDragUpdate={this.onDragUpdate}
-            >
-                <Container>
+            <>
+                <Header />
+                
+                <Search
+                    onChange={this.handleInputChange}
+                    onClick={this.handleSubmit}
 
-                    {this.state.columnOrder.map(columnId => {
-                        const column = this.state.columns[columnId];
-                        const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+                />
+                <DragDropContext
+                    onDragEnd={this.onDragEnd}
+                    onDragStart={this.onDragStart}
+                    onDragUpdate={this.onDragUpdate}
+                >
+                    <Container>
 
-                        return <Column key={column.id} column={column} tasks={tasks} />
-                    })}
-                </Container>
-            </DragDropContext>
+                        {this.state.initialData.columnOrder.map(columnId => {
+                            const column = this.state.initialData.columns[columnId];
+                            const tasks = column.taskIds.map(taskId => this.state.initialData.tasks[taskId]);
+
+                            return <Column key={column.id} column={column} tasks={tasks} />
+                        })}
+                    </Container>
+                </DragDropContext>
             </>
         );
 

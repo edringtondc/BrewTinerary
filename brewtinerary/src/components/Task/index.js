@@ -11,7 +11,7 @@ const Container = styled.div`
 
     display: flex
  
-`;
+`; 
 
 const Handle = styled.div`
     width: 20px

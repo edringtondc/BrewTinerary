@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const breweryController = require("../../controllers/brewerycontroller");
+const breweryController = require("../../controllers/brewerycontrollers");
 
 // Matches with "/api/books"
 router.route("/") //api/brewery/
@@ -13,7 +13,9 @@ router
   .put(breweryController.update)
   .delete(breweryController.remove);
 
+  // router.route("/api/breweries")
+
 module.exports = router;
 
-router.route("/api/breweries")
+
 

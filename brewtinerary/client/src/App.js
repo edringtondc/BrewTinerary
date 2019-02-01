@@ -4,7 +4,7 @@ import Itinerary from "./components/Itinerary"
 
 import { } from "react-beautiful-dnd";
 import "@atlaskit/css-reset";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 
 function App() {

@@ -11,13 +11,18 @@ const APIKEY = keys.beerMapping
 
 
 
-router.get("/breweries", function (req, res) {
-  
-  axios.get(BASEURL + APIKEY + query)
-    .then(function (data) {
-      console.log(data)
-      // res.json(data)
+router.get("/", function (req, res) {
+
+  console.log(req.query)
+
+  axios.get(BASEURL + APIKEY + req.query.q + "&s=json")
+    .then(function (response) {
+      console.log(response.data)
+      console.log("query", req.query)
+      res.json(response.data)
     }).catch(function (err) {
-      if (err) { console.log(err) }
+      if (err) { res.json("you fucked") }
     })
 })
+
+module.exports = router;

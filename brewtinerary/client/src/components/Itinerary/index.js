@@ -12,14 +12,32 @@ import API from "../../utils/API.js"
 //don't change droppale/draggable dimensions during a drag
 //udate styles within snapshot as opposed to in props
 const Container = styled.div`
-    display: flex
+    display: flex;
+    border: 1px solid lightgrey;
 `;
+const Handle = styled.div`
+    
+    width: 20px
+    height: 20px;
+    background-color: orange;
+    border-radius: 4px
+    margin-right: 8px
+`;
+
+const BreweryListItem = styled.div`
+    border: 1px solid lightgrey;
+    background-color: lightpink
+`;
+const Link = styled.a`
+    color: #fb3f00;
+   text-decoration: none;`
+
 export default class Itinerary extends React.Component {
 
     state = {
         initialData,
         search: "",
-        result: []
+        result: [""]
     }
 
     onDragStart = () => {
@@ -76,7 +94,6 @@ export default class Itinerary extends React.Component {
             //call an update after the set state to tell server an update has occured
         }
 
-
         const startTasksIds = Array.from(start.taskIds);
         startTasksIds.splice(source.index, 1);
 
@@ -102,14 +119,10 @@ export default class Itinerary extends React.Component {
             },
         };
         this.setState(newState);
-
-
-
-
     }
 
     searchBreweries = query => {
-        alert("in searchBreweries")
+        // alert("in searchBreweries")
         API.getBreweries(query)
             .then(res => {
                 console.log("front end", res)
@@ -119,11 +132,7 @@ export default class Itinerary extends React.Component {
     };
 
     handleInputChange = event => {
-
-
-
         const { name, value } = event.target
-
         this.setState({
             [name]: value
         })
@@ -139,41 +148,44 @@ export default class Itinerary extends React.Component {
 
     }
 
-
-
     render() {
         return (
 
             <>
-
-
                 <Search
                     value={this.state.search}
                     handleInputChange={this.handleInputChange}
                     handleSubmit={this.handleSubmit}
-
                 />
-                <div className="results">
-                
-
+                <Container>
                     {this.state.result.length ? (
                         <div>
-                            {this.state.result.map( brewery => (
+                            {this.state.result.map(brewery => (
+               
+                                <BreweryListItem key={brewery.id}>
+                                    <Handle></Handle>
+
+                                    <p> Name: {brewery.name} </p>  
+                                    <p> Status: {brewery.status} </p>
+                                    <p> Location: {brewery.street}  </p> 
+                                    <p> City: {brewery.city} </p> 
+                                    <p> State: {brewery.state} </p>
+                                    {/* <a src={brewery.url} target="_blank">Click to checkout the brewery</a> */}
+
+
+                    
+                                </BreweryListItem>
                                 
-                                
-                            
-                                <div >
-                                  Name: { brewery.name}  Status: {brewery.status }
-                                  Location: { brewery.street}  city: { brewery.city}  State: { brewery.state}
-                                </div>
                             ))}
                         </div>
                     ) : (
                             <h3>No Results to Display</h3>
                         )}
-                </div>
+                </Container>
 
-                <DragDropContext
+
+
+                {/* <DragDropContext
                     onDragEnd={this.onDragEnd}
                     onDragStart={this.onDragStart}
                     onDragUpdate={this.onDragUpdate}
@@ -187,7 +199,7 @@ export default class Itinerary extends React.Component {
                             return <Column key={column.id} column={column} tasks={tasks} />
                         })}
                     </Container>
-                </DragDropContext>
+                </DragDropContext> */}
             </>
         );
 

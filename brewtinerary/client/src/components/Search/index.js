@@ -1,6 +1,8 @@
 import React from "react";
 
 
+
+
 function Search(props) {
     return (
 
@@ -12,9 +14,6 @@ function Search(props) {
        </form>
       </div>
 
-        
-
-      
     );
   }
 

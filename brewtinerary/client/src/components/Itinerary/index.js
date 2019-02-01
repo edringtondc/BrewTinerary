@@ -26,7 +26,7 @@ const Handle = styled.div`
 
 const BreweryListItem = styled.div`
     border: 1px solid lightgrey;
-    background-color: lightpink
+    background-color: lightgrey
 `;
 const Link = styled.a`
     color: #fb3f00;
@@ -37,7 +37,18 @@ export default class Itinerary extends React.Component {
     state = {
         initialData,
         search: "",
-        result: [""]
+        result: [""],
+        breweryList: []
+    }
+
+    breweryOnly =() =>{
+        
+        const status = this.state.result
+        console.log(status)
+
+        const breweries = this.state.result.filter(locations => locations.status === "Brewery" || locations.status === "Brewpub")
+        this.setState({breweryList: breweries})
+
     }
 
     onDragStart = () => {
@@ -127,6 +138,9 @@ export default class Itinerary extends React.Component {
             .then(res => {
                 console.log("front end", res)
                 this.setState({ result: res.data })
+                
+            }).then(res => {
+                this.breweryOnly()
             })
             .catch(err => console.log(err));
     };
@@ -148,6 +162,8 @@ export default class Itinerary extends React.Component {
 
     }
 
+    
+
     render() {
         return (
 
@@ -160,10 +176,10 @@ export default class Itinerary extends React.Component {
                 <Container>
                     {this.state.result.length ? (
                         <div>
-                            {this.state.result.map(brewery => (
+                            {this.state.breweryList.map(brewery => (
                
                                 <BreweryListItem key={brewery.id}>
-                                    <Handle></Handle>
+                                    {/* <Handle></Handle> */}
 
                                     <p> Name: {brewery.name} </p>  
                                     <p> Status: {brewery.status} </p>

@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   // Gets all books
   getBreweries: function(search) {
-    alert("we;re werrawdfakjdfn")
+    // alert("we;re werrawdfakjdfn")
     return axios.get(`/api/breweryAPI?q=${search}`); 
   }
   // // Gets the book with the given id

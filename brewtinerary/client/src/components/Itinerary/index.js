@@ -111,16 +111,17 @@ export default class Itinerary extends React.Component {
     searchBreweries = query => {
         alert("in searchBreweries")
         API.getBreweries(query)
-          .then(res => {
-              console.log("front end" , res)
-              this.setState({ result: res.data })})
-          .catch(err => console.log(err));
-      };
+            .then(res => {
+                console.log("front end", res)
+                this.setState({ result: res.data })
+            })
+            .catch(err => console.log(err));
+    };
 
     handleInputChange = event => {
 
-   
-         
+
+
         const { name, value } = event.target
 
         this.setState({
@@ -133,7 +134,7 @@ export default class Itinerary extends React.Component {
         event.preventDefault();
 
         console.log("submitted")
-        console.log("state" , this.state.result)
+        console.log("state", this.state.result)
         this.searchBreweries(this.state.search);
 
     }
@@ -144,14 +145,34 @@ export default class Itinerary extends React.Component {
         return (
 
             <>
-          
-                
+
+
                 <Search
                     value={this.state.search}
                     handleInputChange={this.handleInputChange}
                     handleSubmit={this.handleSubmit}
 
                 />
+                <div className="results">
+                
+
+                    {this.state.result.length ? (
+                        <div>
+                            {this.state.result.map( brewery => (
+                                
+                                
+                            
+                                <div >
+                                  Name: { brewery.name}  Status: {brewery.status }
+                                  Location: { brewery.street}  city: { brewery.city}  State: { brewery.state}
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                            <h3>No Results to Display</h3>
+                        )}
+                </div>
+
                 <DragDropContext
                     onDragEnd={this.onDragEnd}
                     onDragStart={this.onDragStart}

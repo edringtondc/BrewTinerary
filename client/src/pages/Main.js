@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar"
 import styled from "styled-components";
 import MapContainer from "../components/Map"
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import CarouselPics from "../components/Carousel"
 
 
 
@@ -22,7 +23,7 @@ const Main = () => {
     return (
         <>
         <NavBar/>
-        <Header />
+     <CarouselPics/>
         
         <Container>
            <Row>

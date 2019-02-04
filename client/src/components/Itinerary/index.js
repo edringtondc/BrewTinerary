@@ -2,6 +2,7 @@ import React from 'react';
 import initialData from "../../initial-data";
 import Column from "../Column";
 import Search from "../Search";
+import Checkbox from "../Button"
 
 import { DragDropContext } from "react-beautiful-dnd";
 import "@atlaskit/css-reset";
@@ -9,28 +10,33 @@ import styled from "styled-components";
 import API from "../../utils/API.js"
 
 
-//don't change droppale/draggable dimensions during a drag
+//don't change droppable/draggable dimensions during a drag
 //udate styles within snapshot as opposed to in props
 const Container = styled.div`
     display: flex;
     border: 1px solid lightgrey;
 `;
-const Handle = styled.div`
-    
-    width: 20px
-    height: 20px;
-    background-color: orange;
-    border-radius: 4px
-    margin-right: 8px
-`;
 
 const BreweryListItem = styled.div`
-    border: 1px solid lightgrey;
+    border: 1px solid black;
     background-color: lightgrey
 `;
 const Link = styled.a`
     color: #fb3f00;
    text-decoration: none;`
+
+const Name = styled.p`
+    color: black;
+    font-size: 18px;
+    margin-left: 8px;
+    margin-right: 8px
+`;
+
+const Address = styled.p`
+    margin-top: 0px;
+    margin-left: 8px;
+    margin-right: 8px
+`;
 
 export default class Itinerary extends React.Component {
 
@@ -162,7 +168,6 @@ export default class Itinerary extends React.Component {
 
     }
 
-    
 
     render() {
         return (
@@ -177,23 +182,24 @@ export default class Itinerary extends React.Component {
                     {this.state.result.length ? (
                         <div>
                             {this.state.breweryList.map(brewery => (
-               
+
                                 <BreweryListItem key={brewery.id}>
                                     {/* <Handle></Handle> */}
 
-                                    <p> Name: {brewery.name} </p>  
-                                    <p> Status: {brewery.status} </p>
-                                    <p> Location: {brewery.street}  </p> 
-                                    <p> City: {brewery.city} </p> 
-                                    <p> State: {brewery.state} </p>
+                                    <Name>{brewery.name} </Name>  
+            
+                                    <Address> {brewery.street}</Address>
+                                    <Address>{brewery.city}, {brewery.state}</Address>
                                     {/* <a src={brewery.url} target="_blank">Click to checkout the brewery</a> */}
+                                    <Checkbox/>
 
-
-                    
                                 </BreweryListItem>
+
                                 
                             ))}
+
                         </div>
+                          //button with Link with to=...
                     ) : (
                             <h3>No Results to Display</h3>
                         )}

@@ -1,26 +1,9 @@
 import React from 'react';
-import Header from "./components/Header"
-import Itinerary from "./components/Itinerary"
 import "./App.css"
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { } from "react-beautiful-dnd";
-import "@atlaskit/css-reset";
-import styled from "styled-components";
+import Main from "./pages/Main";
 
-const MapImg = styled.img`
-    width: 700px
-    
- 
-    
-`;
-
-const Container = styled.div`
-    display: flex
-    width: 75%
-    flex-direction: column
-    justify-content: center
-   
-`;
 
 
 function App() {
@@ -28,14 +11,20 @@ function App() {
     return (
 
         <>
-            <Header />
-            <Container>
-            <MapImg src="map-no-params.png" alt="map">
-              
-            </MapImg>
 
-            <Itinerary></Itinerary>
-            </Container>
+            <Router>
+                <div>
+
+                    <Route exact path="/" component={Main} />
+          
+
+                    {/* <Route
+                        path='/dashboard'
+                        render={(props) => <Dashboard {...props} isAuthed={true} />}
+                    /> */}
+
+                </div>
+            </Router>
 
 
         </>

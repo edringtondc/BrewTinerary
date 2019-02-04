@@ -21,7 +21,7 @@ router.get("/", function (req, res) {
       console.log("query", req.query)
       res.json(response.data)
     }).catch(function (err) {
-      if (err) { res.json("you fucked") }
+      if (err) { res.json(err) }
     })
 })
 

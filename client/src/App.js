@@ -3,6 +3,8 @@ import "./App.css"
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Main from "./pages/Main";
+import Saved from "./pages/Saved";
+
 
 
 
@@ -16,6 +18,7 @@ function App() {
                 <div>
 
                     <Route exact path="/" component={Main} />
+                    <Route exact path="/saved" component={Saved}/>
           
 
                     {/* <Route

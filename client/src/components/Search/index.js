@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
+
+
 const Search = (props) => {
   
     return (
+
       <Form inline>
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Label for="city" className="mr-sm-2">Location</Label>
@@ -12,6 +15,7 @@ const Search = (props) => {
         </FormGroup>
         <Button type="submit" onClick={props.handleSubmit}>Search</Button>
       </Form>
+    
     );
   
 }
